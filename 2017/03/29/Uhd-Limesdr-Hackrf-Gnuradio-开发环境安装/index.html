@@ -6,17 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://boxinli.com">
-  <title>Ekko&#39;s Blog</title>
+  <title>Uhd+Limesdr+Hackrf Gnuradio 开发环境安装 | Ekko&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="不善交际，嵌入式Linux，SDR从业者">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Ekko's Blog">
-<meta property="og:url" content="http://boxinli.com/index.html">
+  <meta name="description" content="依赖安装我们使用的系统是Ubuntu14.04.5LTS版本。首先要添加一个cmake的源，因为默认的源是安装的2.8.X版本，而我们需要3.2.x版本以上的，添加方式如下
+sudo add-apt-repository ppa:george-edison55/cmake-3.x">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Uhd+Limesdr+Hackrf Gnuradio 开发环境安装">
+<meta property="og:url" content="http://boxinli.com/2017/03/29/Uhd-Limesdr-Hackrf-Gnuradio-开发环境安装/index.html">
 <meta property="og:site_name" content="Ekko's Blog">
-<meta property="og:description" content="不善交际，嵌入式Linux，SDR从业者">
+<meta property="og:description" content="依赖安装我们使用的系统是Ubuntu14.04.5LTS版本。首先要添加一个cmake的源，因为默认的源是安装的2.8.X版本，而我们需要3.2.x版本以上的，添加方式如下
+sudo add-apt-repository ppa:george-edison55/cmake-3.x">
+<meta property="og:updated_time" content="2017-03-30T02:05:07.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Ekko's Blog">
-<meta name="twitter:description" content="不善交际，嵌入式Linux，SDR从业者">
+<meta name="twitter:title" content="Uhd+Limesdr+Hackrf Gnuradio 开发环境安装">
+<meta name="twitter:description" content="依赖安装我们使用的系统是Ubuntu14.04.5LTS版本。首先要添加一个cmake的源，因为默认的源是安装的2.8.X版本，而我们需要3.2.x版本以上的，添加方式如下
+sudo add-apt-repository ppa:george-edison55/cmake-3.x">
   
     <link rel="alternative" href="/atom.xml" title="Ekko&#39;s Blog" type="application/atom+xml">
   
@@ -144,16 +148,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-Uhd-Limesdr-Hackrf-Gnuradio-开发环境安装" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-Uhd-Limesdr-Hackrf-Gnuradio-开发环境安装" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/29/Uhd-Limesdr-Hackrf-Gnuradio-开发环境安装/">Uhd+Limesdr+Hackrf Gnuradio 开发环境安装</a>
+    <h1 class="article-title" itemprop="name">
+      Uhd+Limesdr+Hackrf Gnuradio 开发环境安装
     </h1>
   
 
@@ -168,10 +170,61 @@
       
         <h2 id="依赖安装"><a href="#依赖安装" class="headerlink" title="依赖安装"></a>依赖安装</h2><p>我们使用的系统是Ubuntu14.04.5LTS版本。<br>首先要添加一个cmake的源，因为默认的源是安装的2.8.X版本，而我们需要3.2.x版本以上的，添加方式如下</p>
 <pre><code>sudo add-apt-repository ppa:george-edison55/cmake-3.x
-</code></pre>
-        
-          <a class="article-more-a" href="/2017/03/29/Uhd-Limesdr-Hackrf-Gnuradio-开发环境安装/#more">more >></a>
-        
+</code></pre><a id="more"></a>
+<p>更新之后我们对系统进行更新操作</p>
+<pre><code>sudo apt-get update
+sudo apt-get upgrade
+</code></pre><p>接下里就是安装依赖</p>
+<pre><code>sudo apt-get install -y build-essential cmake git-core autoconf automake libtool g++ python-dev swig pkg-config libfftw3-dev libboost1.55-all-dev python-mako libcppunit-dev libgsl0-dev libusb-dev sdcc libsdl1.2-dev python-wxgtk2.8 python-numpy python-cheetah python-lxml doxygen python-qt4 python-qwt5-qt4 libxi-dev libqt4-opengl-dev libqwt5-qt4-dev libfontconfig1-dev libxrender-dev libusb-1.0 libsqlite3-dev libi2c-dev libwxgtk3.0-dev freeglut3-dev
+</code></pre><h2 id="UHD安装"><a href="#UHD安装" class="headerlink" title="UHD安装"></a>UHD安装</h2><pre><code>git clone --recursive https://github.com/EttusResearch/uhd
+cd uhd/host
+mkdir build
+cd build
+cmake ../
+make -j4
+sudo make install
+sudo ldconfig
+</code></pre><h2 id="hackrf安装"><a href="#hackrf安装" class="headerlink" title="hackrf安装"></a>hackrf安装</h2><pre><code>git clone --recursive https://github.com/mossmann/hackrf
+cd hackrf/host
+mkdir build
+cd build
+cmake ../ -DINSTALL_UDEV_RULES=ON
+make -j4
+sudo make install
+sudo ldconfig
+</code></pre><h2 id="gnuradio安装"><a href="#gnuradio安装" class="headerlink" title="gnuradio安装"></a>gnuradio安装</h2><pre><code>git clone --recursive https://github.com/gnuradio/gnuradio
+cd gnuradio
+mkdir build
+cd build
+cmake ../
+make -j4
+sudo make install 
+sudo ldconfig
+</code></pre><h2 id="Soapysdr安装"><a href="#Soapysdr安装" class="headerlink" title="Soapysdr安装"></a>Soapysdr安装</h2><pre><code>git clone --recursive https://github.com/pothosware/SoapySDR
+cd SoapySDR
+mkdir build
+cd build
+cmake ../
+make -j4
+sudo make install
+sudo ldconfig
+</code></pre><h2 id="LimeSuite安装"><a href="#LimeSuite安装" class="headerlink" title="LimeSuite安装"></a>LimeSuite安装</h2><pre><code>git clone --recursive https://github.com/myriadrf/LimeSuite
+cd LimeSuite
+cd build
+cmake ../
+make -j4
+sudo make install
+sudo ldconfig
+</code></pre><h2 id="gr-osmosdr安装"><a href="#gr-osmosdr安装" class="headerlink" title="gr-osmosdr安装"></a>gr-osmosdr安装</h2><pre><code>git clone --recursive https://github.com/osmocom/gr-osmosdr
+cd gr-osmosdr
+mkdir build
+cd build
+cmake ../
+make -j4
+sudo make install
+sudo ldconfig
+</code></pre><p>到此开发环境已安装完成，可以通过Gnuradio来使用Limesdr。</p>
+
       
 
       
@@ -201,18 +254,74 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/29/Uhd-Limesdr-Hackrf-Gnuradio-开发环境安装/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://boxinli.com/2017/03/29/Uhd-Limesdr-Hackrf-Gnuradio-开发环境安装/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
 
-
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2017/03/16/读书计划/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">读书计划</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
 
 
@@ -220,70 +329,26 @@
 
 
   
-    <article id="post-读书计划" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/16/读书计划/">读书计划</a>
-    </h1>
+    <div class="duoshuo"></div>
   
 
-        
-        <a href="/2017/03/16/读书计划/" class="archive-article-date">
-  	<time datetime="2017-03-16T17:23:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>  在找C++资料时，发现有很多买了还没看的书，现在做个清单，以及阅读计划，以达到物尽其用的目的。</p>
-<h3 id="图书清单"><a href="#图书清单" class="headerlink" title="图书清单"></a>图书清单</h3><h3 id="阅读计划"><a href="#阅读计划" class="headerlink" title="阅读计划"></a>阅读计划</h3><p>  this message is for git </p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">读书</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/16/读书计划/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
 
 
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'blog-lijsvpjmjk'; // required: replace example with your forum shortname
 
-
-
-
-
-
-  
-  
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
 
 
           </div>
@@ -305,8 +370,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
